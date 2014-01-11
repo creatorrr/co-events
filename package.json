@@ -1,0 +1,31 @@
+{
+  "name": "co-events",
+  "version": "0.0.0",
+  "description": "Wrapper for EventEmitter for using coroutines.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/creatorrr/co-events.git"
+  },
+  "keywords": [
+    "co",
+    "events",
+    "EventEmitter",
+    "generators"
+  ],
+  "author": "diwank.singh@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/creatorrr/co-events/issues"
+  },
+  "devDependencies": {
+    "coffee-script": "git://github.com/alubbe/coffee-script.git#1e377ed59bc4f679863b7543f0c33d1f89dbf6ac",
+    "mocha": "~1.16.2"
+  },
+  "dependencies": {
+    "co": "~3.0.2"
+  }
+}
