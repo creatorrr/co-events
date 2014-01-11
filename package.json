@@ -4,7 +4,7 @@
   "description": "Wrapper for EventEmitter for using coroutines.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/coffee-script/bin/coffee -c test && ./node_modules/mocha/bin/mocha --harmony --bail --colors --ui exports --reporter spec"
   },
   "repository": {
     "type": "git",
