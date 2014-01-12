@@ -1,65 +1,74 @@
-Events = require '..'
+CoEvents = require '..'
 assert = require 'assert'
 
 # Utils
-_ =
-  wait: (time) ->
-    # Return thunk for co
-
-    (cb) ->
-      setTimeout (-> cb null, time), time
+wait = (time) ->
+  # Return thunk for co
+  (cb) ->
+    setTimeout (-> cb null, time), time
 
 module.exports =
   'Co-events':
-    'event listener':
-      'should be added when .on is called': (done) ->
-        events = new Events
+    'API':
+      'Listeners can be anything that co supports viz. promises, thunks, generators, arrays or objects.': (callback) ->
+        events = new CoEvents
         fs = require 'fs'
 
         try
           events.on 'readFile', (filename) ->*
-            console.log yield fs.readFile filename
+            yield fs.readFile filename
 
-          done null
+          callback null
 
         catch e
-          done e
+          callback e
 
-      'should be called when event is triggered': (done) ->
-        events = new Events
+      'Listener called when event emitted': (callback) ->
+        events = new CoEvents
 
-        events.on 'wait', ->*
-          done null
+        events.on 'event', ->*
+          callback null
 
-        events.emit 'wait'
+        events.emit 'event'
 
-      'should be called with arguments passed by event': (done) ->
-        events = new Events
+      'Arguments sent by emit are applied to listener': (callback) ->
+        events = new CoEvents
 
         events.on 'wait', (time) ->*
-          wait = yield _.wait time
-          done null, wait
+          yield wait time
+          callback null
 
         events.emit 'wait', 500
 
-      'should be removed when .removeListener is called': (done) ->
-        events = new Events
+      'RemoveListener can remove attached listeners': (callback) ->
+        events = new CoEvents
 
         fn = ->* 'Hello'
         events.on 'hello', fn
-        events.emit 'hello'
 
         events.removeListener 'hello', fn
 
         assert.equal false, events.emit 'hello'
-        done null
+        callback null
 
-      'registered by .once should only be called once': (done) ->
-        events = new Events
+      'Events registered using .once are removed once they are fired': (callback) ->
+        events = new CoEvents
 
         events.once 'hello', ->* 'Hello'
         events.emit 'hello'
 
         assert.equal false, events.emit 'hello'
-        done null
+        callback null
+
+    'Aliases':
+      '.off is an alias of .removeListener and .trigger is an alias of .emit': (callback) ->
+        events = new CoEvents
+
+        fn = ->* 'Hello'
+        events.on 'hello', fn
+        events.trigger 'hello'
+
+        events.off 'hello', fn
+        assert.equal false, events.trigger 'hello'
+        callback null
 
