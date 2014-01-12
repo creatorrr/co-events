@@ -1,6 +1,6 @@
 {
   "name": "co-events",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Wrapper for EventEmitter for using coroutines.",
   "main": "lib/index.js",
   "scripts": {
