@@ -5,7 +5,7 @@ class module.exports extends EventEmitter
   on: (type, listener) ->
     # Wrap listener in co
     fn = (args...) ->
-      co(listener) args...
+      co(listener).apply this, args
 
     # removeListener uses .listener property to identify wrapped listeners
     fn.listener = listener
@@ -23,7 +23,7 @@ class module.exports extends EventEmitter
 
       unless fired
         fired = true
-        co(listener) args...
+        co(listener).apply this, args
 
     fn.listener = listener
 
