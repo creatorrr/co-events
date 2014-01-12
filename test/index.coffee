@@ -42,6 +42,18 @@ module.exports =
 
         events.emit 'wait', 500
 
+      'should be removed when .removeListener is called': (done) ->
+        events = new Events
+
+        fn = ->* 'Hello'
+        events.on 'hello', fn
+        events.emit 'hello'
+
+        events.removeListener 'hello', fn
+
+        assert.equal false, events.emit 'hello'
+        done null
+
       'registered by .once should only be called once': (done) ->
         events = new Events
 
@@ -50,3 +62,4 @@ module.exports =
 
         assert.equal false, events.emit 'hello'
         done null
+
