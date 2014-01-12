@@ -32,3 +32,9 @@ Patch guidelines
 * Build docs.
 * Add yourself to the list of contributors in `package.json` (if you havent already).
 * Submit PR explaining the changes!
+
+Tips
+----
+
+* To automate the testing script, you may also activate the pre-commit git hook by running `ln -s ../../pre-commit.sh .git/hooks/pre-commit`
+
