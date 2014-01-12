@@ -32,3 +32,7 @@ class module.exports extends EventEmitter
 
     # Return this for chaining
     this
+
+  # Aliases
+  off: (args...) -> @removeListener.apply this, args
+  trigger: (args...) -> @emit.apply this, args
