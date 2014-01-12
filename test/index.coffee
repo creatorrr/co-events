@@ -43,7 +43,8 @@ module.exports =
       'registered by .once should only be called once': (done) ->
         events = new Events
 
-        events.once 'hello', ->* console.log 'Hello'
+        events.once 'hello', ->* 'Hello'
         events.emit 'hello'
 
         assert.equal false, events.emit 'hello'
+        done null

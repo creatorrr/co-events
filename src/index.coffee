@@ -9,3 +9,18 @@ class module.exports extends EventEmitter
     fn.listener = listener
 
     super type, fn
+
+  once: (type, listener) ->
+    fired = false
+
+    fn = (args...) ->
+      @removeListener type, fn
+
+      unless fired
+        fired = true
+        co(listener) args...
+
+    fn.listener = listener
+
+    EventEmitter::on.call this, type, fn
+    this
