@@ -4,6 +4,8 @@ assert = require 'assert'
 # Utils
 _ =
   wait: (time) ->
+    # Return thunk for co
+
     (cb) ->
       setTimeout (-> cb null, time), time
 
