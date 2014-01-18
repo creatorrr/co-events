@@ -13,15 +13,23 @@ module.exports =
       'Listeners can be anything that co supports viz. promises, thunks, generators, arrays or objects.': (callback) ->
         events = new CoEvents
         fs = require 'fs'
+        read = (filename) ->
+          (cb) ->
+            fs.readFile filename, cb
 
-        try
-          events.on 'readFile', (filename) ->*
-            yield fs.readFile filename
+        events.on 'readFile', (filename) ->*
+          callback null, yield read filename
 
-          callback null
+        events.emit 'readFile', 'LICENSE'
 
-        catch e
-          callback e
+      'Good old EventEmitter style functions': (callback) ->
+        events = new CoEvents
+        fs = require 'fs'
+
+        events.on 'readFile', (filename) ->
+          callback null, fs.readFileSync filename
+
+        events.emit 'readFile', 'LICENSE'
 
       'Listener called when event emitted': (callback) ->
         events = new CoEvents
