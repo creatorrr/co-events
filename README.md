@@ -11,18 +11,30 @@
 Listeners can be anything that co supports viz. promises, thunks, generators, arrays or objects..
 
 ```js
-var e, events, fs;
+var events, fs, read;
 events = new CoEvents;
 fs = require('fs');
-try {
-  events.on('readFile', function*(filename) {
-    return yield fs.readFile(filename);
-  });
-  return callback(null);
-} catch (_error) {
-  e = _error;
-  return callback(e);
-}
+read = function(filename) {
+  return function(cb) {
+    return fs.readFile(filename, cb);
+  };
+};
+events.on('readFile', function*(filename) {
+  return callback(null, yield read(filename));
+});
+return events.emit('readFile', 'LICENSE');
+```
+
+Good old EventEmitter style functions.
+
+```js
+var events, fs;
+events = new CoEvents;
+fs = require('fs');
+events.on('readFile', function(filename) {
+  return callback(null, fs.readFileSync(filename));
+});
+return events.emit('readFile', 'LICENSE');
 ```
 
 Listener called when event emitted.
