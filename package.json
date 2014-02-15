@@ -8,7 +8,7 @@
     "docs": "rm README.md && ./node_modules/coffee-script/bin/coffee -c test && ./node_modules/mocha/bin/mocha --harmony --bail --async-only --colors --ui exports --reporter markdown >> README.md",
     "build": "./node_modules/coffee-script/bin/coffee -o lib -c src",
     "watch": "./node_modules/coffee-script/bin/coffee -o lib -cw src",
-    "prepublish": "npm run-script build"
+    "prepublish": "npm run-script build && npm run-script docs"
   },
   "repository": {
     "type": "git",
